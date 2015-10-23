@@ -32,6 +32,7 @@ Gazebo установился вместе с ROS'ом на предыдущем
 $ roslaunch gazebo_ros empty_world.launch
 ~~~~
 Вы должны увидеть, как запускается окно Gazebo.
+![Gazebo](https://bytebucket.org/msurtsukov/gazebo_tutor/raw/4874a72a2cdbec13420b819c9466aa936129d9cc/figs/Gazebo_overview.png)
 Запуск через roslaunch запускает как ядро ROS roscore, так и пару клиент-сервер Gazebo.
 Обновите путь по которому Gazebo ищет модели:
 ~~~~
