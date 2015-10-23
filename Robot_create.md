@@ -103,15 +103,20 @@ roslaunch gazebo_ros empty_world.launch
 
 ##Создание sdf файла модели робота с помощью утилиты xacro
 
+Теперь, когда структура sdf файла стала примерно понятна, продолжим её изучение, попутно познакомившись с утилитой xacro. 
+
+Название xacro происходит от Xml mACROs. Это простая утилита, однако она существенно помогает в создании сложных xml файлов в том числе sdf и udrf. 
+Xacro позволяет импортировать один sdf файл в другой, определять переменные, создавать макросы, производить не сложные арифметические вычисления и т.д. 
 
 
-Теперь создадим в папке sdf файл с названием model.sdf.xacro и добавим в него следующее содержание:
+Удалим файл model.sdf и создадим в папке sdf файл с названием model.sdf.xacro, добавим в него следующее содержание:
 ~~~~
 <?xml version='1.0'?>
 <sdf version='1.4'>
   <model name="mobot" xmlns:xacro="http://www.ros.org/wiki/xacro">
-
-
+~~~~
+Далее добавим ниже определения переменных:
+~~~~
     <xacro:property name="PI" value="3.1415926535897931"/>
 
     <xacro:property name="chassisHeight" value="0.1"/>
@@ -130,12 +135,19 @@ roslaunch gazebo_ros empty_world.launch
 
     <xacro:property name="cameraSize" value="0.05"/>
     <xacro:property name="cameraMass" value="0.1"/>
-
-    
+~~~~
+Импортируем файл с макросами, который мы напишем позже,
+обратите внимание на $(find mobot_description)
+~~~~
     <xacro:include filename="$(find mobot_description)/sdf/macros.xacro" />
-
-    <static>false</static>
-
+~~~~
+Ниже добавим описание линка базы робота, тэг `static` указывает на то, что модель пока статична, это полезно указывать на момент формирования модели
+~~~~
+    <static>True</static>
+~~~~
+Обратите внимание, что в тексте ниже несколько `visual` и `collision` в одном линке, так же в `collision` кастера изменены свойства поверхности, а именно добавлено проскальзывание и убрано трение.
+Кастер это сфера без трения, которая добавлена, чтобы роботу хватило только двух колес.
+~~~~
     <link name='chassis'>
       <pose>0 0 ${wheelRadius} 0 0 0</pose>
       <collision name='collision'>
@@ -204,3 +216,47 @@ roslaunch gazebo_ros empty_world.launch
   </model>
 </sdf>
 ~~~~
+Теперь создадим там же файл model.xacro и определим там несколько макросов, синтаксис говорит сам за себя.
+~~~~
+<?xml version='1.0'?>
+<model>
+
+  <macro name="cylinder_inertia" params="m r h">
+    <inertia>
+      <ixx>${m*(3*r*r+h*h)/12}</ixx>
+      <iyy>${m*(3*r*r+h*h)/12}</iyy>
+      <izz>${m*r*r/2}</izz>
+      <ixy>0</ixy>
+      <ixz>0</ixz>
+      <iyz>0</iyz>
+    </inertia>
+  </macro>
+
+  <macro name="box_inertia" params="m x y z">
+    <inertia>
+      <ixx>${m*(y*y+z*z)/12}</ixx>
+      <iyy>${m*(x*x+z*z)/12}</iyy>
+      <izz>${m*(x*x+y*y)/12}</izz>
+      <ixy>0</ixy>
+      <ixz>0</ixz>
+      <iyz>0</iyz>
+    </inertia>
+  </macro>
+
+  <macro name="sphere_inertia" params="m r">
+    <inertia>
+      <ixx>${2*m*r*r/5}</ixx>
+      <iyy>${2*m*r*r/5}</iyy>
+      <izz>${2*m*r*r/5}</izz>
+      <ixy>0</ixy>
+      <ixz>0</ixz>
+      <iyz>0</iyz>
+    </inertia>
+  </macro>
+</model>
+~~~~
+Далее с помощью xacro создаем sdf файл:
+~~~~
+
+~~~~
+Запустим Gazebo и посмотрим, что получилось.
