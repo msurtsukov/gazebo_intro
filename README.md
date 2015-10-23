@@ -34,8 +34,10 @@ $ roslaunch gazebo_ros empty_world.launch
 Вы должны увидеть, как запускается окно Gazebo.
 Запуск через roslaunch запускает как ядро ROS roscore, так и пару клиент-сервер Gazebo.
 Обновите путь по которому Gazebo ищет модели:
+~~~~
 $ mkdir ~/catkin_ws/src/models 
 $ echo “export GAZEBO_MODEL_PATH=~/catkin_ws/src/models:GAZEBO_MODEL_PATH” >> ~/.bashrc
+~~~~
 
 На этом первоначальную настройку можно считать законченной.
 #Создание робота
