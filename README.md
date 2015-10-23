@@ -82,7 +82,10 @@ $ mkdir mobot_description/sdf
 <?xml version='1.0'?>
 <sdf version='1.4'>
   <model name="mobot" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+
     <xacro:property name="PI" value="3.1415926535897931"/>
+
     <xacro:property name="chassisHeight" value="0.1"/>
     <xacro:property name="chassisLength" value="0.4"/>
     <xacro:property name="chassisWidth" value="0.2"/>
@@ -106,31 +109,31 @@ $ mkdir mobot_description/sdf
     <static>false</static>
 
     <link name='chassis'>
-        <pose>0 0 ${wheelRadius} 0 0 0</pose>
-        <collision name='collision'>
-            <geometry>
+      <pose>0 0 ${wheelRadius} 0 0 0</pose>
+      <collision name='collision'>
+        <geometry>
           <box>
             <size>${chassisLength} ${chassisWidth} ${chassisHeight}</size>
           </box>
-            </geometry>
-        </collision>
+        </geometry>
+      </collision>
 
-        <visual name='visual'>
-            <geometry>
-            <box>
-              <size>${chassisLength} ${chassisWidth} ${chassisHeight}</size>
-            </box>
-            </geometry>
-            <material>
-            <script>
+      <visual name='visual'>
+        <geometry>
+          <box>
+            <size>${chassisLength} ${chassisWidth} ${chassisHeight}</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
             <name>Gazebo/Orange</name>
             <uri>__default__</uri>
           </script>
         </material>
       </visual>
 
-      <inertial>
-        <mass>${chassisMass}</mass>
+      <inertial> 
+        <mass>${chassisMass}</mass> 
         <box_inertia m="${chassisMass}" x="${chassisLength}" y="${chassisWidth}" z="${chassisHeight}"/>
       </inertial>
 
@@ -169,6 +172,7 @@ $ mkdir mobot_description/sdf
         </material>
       </visual>
     </link>
+
   </model>
 </sdf>
 ~~~~
