@@ -25,6 +25,7 @@ ROS Indigo работает с Gazebo 2.2, ROS Jade работает с Gazebo 5
 - Устанавливаем ROS-indigo-desktop-full, как написано [здесь](http://wiki.ros.org/indigo/Installation/Ubuntu)
 - Настраиваем рабочую папку catkin, как написано [здесь](http://wiki.ros.org/ROS/Tutorials/InstallingandConfiguringROSEnvironment)
 - Если вы не знакомы с ROS, то желательно сначала пройти уроки для начинающих [здесь](http://wiki.ros.org/ROS/Tutorials)
+
 ###Gazebo
 Gazebo установился вместе с ROS'ом на предыдущем шаге. Убедитесь, что он работает, введя команду в терминал:
 ~~~~
