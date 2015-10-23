@@ -37,7 +37,7 @@ $ roslaunch gazebo_ros empty_world.launch
 Обновите путь по которому Gazebo ищет модели:
 ~~~~
 $ mkdir ~/catkin_ws/src/models 
-$ echo “export GAZEBO_MODEL_PATH=~/catkin_ws/src/models:GAZEBO_MODEL_PATH” >> ~/.bashrc
+$ echo “export GAZEBO_MODEL_PATH=~/catkin_ws/src/models:$GAZEBO_MODEL_PATH” >> ~/.bashrc
 ~~~~
 
 На этом первоначальную настройку можно считать законченной.
