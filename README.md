@@ -40,3 +40,4 @@ $ echo “export GAZEBO_MODEL_PATH=~/catkin_ws/src/models:$GAZEBO_MODEL_PATH” 
 ~~~~
 
 На этом первоначальную настройку можно считать законченной.
+В следующей части начнем создавать модель робота.
