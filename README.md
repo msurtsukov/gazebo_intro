@@ -41,4 +41,4 @@ $ echo “export GAZEBO_MODEL_PATH=~/catkin_ws/src/models:$GAZEBO_MODEL_PATH” 
 ~~~~
 
 На этом первоначальную настройку можно считать законченной.
-В следующей части начнем создавать модель робота.
+В [следующей части](https://github.com/urtrial/gazebo_intro/blob/master/robot_create.md) начнем создавать модель робота.
