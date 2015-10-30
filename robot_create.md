@@ -354,4 +354,43 @@ rosrun xacro xacro -o model.sdf model.sdf.xacro
 Импортируем модель в Gazebo и смотрим, что получилось:
 ![Mobot_cont2](/figs/model_cont2.png)
 
+##Создание launch файла
+Для того, чтобы не приходилось каждый раз вручную добавлять робота, создадим launch файл.
+В пакете mobot_gazebo создадим файл launch/mobot.launch и добавим в него:
+~~~~
+<launch>
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+  </include>
+
+  <!-- urdf xml robot description loaded on the Parameter Server, converting the xacro into a proper sdf/urdf file-->
+  <param name="robot_description" command="$(find xacro)/xacro.py '$(find mobot_description)/sdf/model.sdf.xacro'" />
+
+  <!-- push robot_description to factory and spawn robot in gazebo -->
+  <node name="mobot_spawn" pkg="gazebo_ros" type="spawn_model" output="screen" args="-sdf -param robot_description -model mobot" />
+   
+</launch>
+~~~~
+Здесь мы сначала запускаем пустой мир, как мы делали обычно.
+Потом в параметр записываем созданный с помощью xacro sdf текст. (здесь мы не обновяем model.sdf, а сразу записываем в параметр, если добавлять через инклуд, то все же на до запускать в терминале xacro, как мы делали это раньше).
+Далее запускаем утилиту `spawn_model`, которой передаем параметр содержащий sdf текст нашей модели, и она его добавляет в мир.
+
+Теперь создадим в папке worlds файл mobot.world:
+~~~~
+<?xml version="1.0" ?>
+<sdf version="1.4">
+  <world name="mobot">
+    <include>
+      <uri>model://ground_plane</uri>
+    </include>
+    <include>
+      <uri>model://sun</uri>
+    </include>
+  </world>
+</sdf>
+~~~~
+Внутрь тэгов `include` можно так же добавить тэг `pose` чтобы задать положение, сюда можете добавить все необходимые объекты, чтобы каждый раз не добавлять их вручную.
+Теперь запустить Gazebo с роботом можно так:
+~~~~
+$ roslaunch mobot_gazebo mobot.launch
+~~~~
 В следующей части мы добавим камеру и нужные плагины в модель, чтобы взаимодействовать с ROS.
