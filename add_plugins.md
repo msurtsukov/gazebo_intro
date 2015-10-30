@@ -132,4 +132,4 @@ $ 	rosrun turtlesim turtle_teleop_key /turtle1/cmd_vel:=/mobot/cmd_vel
 Это небольшая учебная утилита, которая отправляет geometry_msgs/Twist при нажатии клавиш стрелок на клавиатуре, попробуйте!
 Особенно интересно управлять им, если смотреть на изображение с камеры.
 
-В следующей части мы напишем простенький плагин на C++.
+В [следующей части](https://github.com/urtrial/gazebo_intro/blob/master/create_plugin.md) мы напишем простенький плагин на C++.
