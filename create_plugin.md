@@ -20,10 +20,8 @@ $ mkdir include src
 #include <ros/ros.h>
 #include <std_msgs/Float32.h>
 
-namespace gazebo
-{
-  class CameraPos : public ModelPlugin
-  {
+namespace gazebo {
+  class CameraPos : public ModelPlugin {
   public:
     // Constructor
     CameraPos();
@@ -74,35 +72,31 @@ namespace gazebo
 ~~~~
 #include "/home/mikhail/catkin_ws/src/mobot/mobot_plugins/include/camera_rotation_plugin.h"
 
-namespace gazebo
-{
+namespace gazebo {
   // Constructor with NodeHandler inititalization 
-  CameraPos::CameraPos():_nh("camera_pos_plugin"){
+  CameraPos::CameraPos():_nh("camera_pos_plugin") {
   	_angle = 0.0;
   };
 
-  void CameraPos::setAngle(double angle){
+  void CameraPos::setAngle(double angle) {
     ROS_INFO("was angle: %g", this->_angle);
     ROS_INFO("setting angle: %g", angle);
     this->_angle = angle;
   }
 
   // Called when ROS msg received
-  void CameraPos::callBack(const std_msgs::Float32::ConstPtr& msg)
-  {    
+  void CameraPos::callBack(const std_msgs::Float32::ConstPtr& msg) {    
     this->setAngle(msg->data);
   }
 
   // Called to load plugin
-  void CameraPos::Load(physics::ModelPtr _parent, sdf::ElementPtr _sdf)
-  {
+  void CameraPos::Load(physics::ModelPtr _parent, sdf::ElementPtr _sdf) {
     // Store the pointer to the model
     this->model = _parent;
     this->sdf = _sdf;
 
     // Get parameters from sdf
-    if (!this->sdf->HasElement("cameraJointName"))
-    {
+    if(!this->sdf->HasElement("cameraJointName")) {
       ROS_FATAL_STREAM("cameraJointName tag is not specified, quitting");
       exit(1);
     } else {
@@ -110,20 +104,17 @@ namespace gazebo
       ROS_INFO("inside");
       this->_joint = this->model->GetJoint(this->_jointName);
     }
-    if (!this->sdf->HasElement("topicName"))
-    {
+    if(!this->sdf->HasElement("topicName")) {
       // default
       this->_topicName = "set_camera_angle";
-    }
-    else {
+    } else {
       this->_topicName = this->sdf->Get<std::string>("topicName");
     }
 
     // Create subscriber to connect with ROS
     sub = _nh.subscribe(_topicName, 2, &CameraPos::callBack, this);
     
-    if (!this->sdf->HasElement("updateRate"))
-    {
+    if(!this->sdf->HasElement("updateRate")) {
       ROS_INFO("joint trajectory plugin missing <updateRate>, defaults"
                " to 0.0 (as fast as possible)");
       this->_updateRate = 0;
@@ -132,8 +123,7 @@ namespace gazebo
       this->_updateRate = this->sdf->Get<double>("updateRate");
 
     // Make sure the ROS node for Gazebo has already been initialized
-    if (!ros::isInitialized())
-    {
+    if (!ros::isInitialized()) {
       ROS_FATAL_STREAM("A ROS node for Gazebo has not been initialized, unable to load plugin. "
         << "Load the Gazebo system plugin 'libgazebo_ros_api_plugin.so' in the gazebo_ros package)");
       return;
@@ -145,8 +135,7 @@ namespace gazebo
   }
 
   // Called by the world update start event
-  void CameraPos::OnUpdate(const common::UpdateInfo & /*_info*/)
-  {
+  void CameraPos::OnUpdate(const common::UpdateInfo & /*_info*/) {
     // Change joint angle
     this->_joint->SetAngle(0, _angle);
   }
