@@ -393,4 +393,4 @@ rosrun xacro xacro -o model.sdf model.sdf.xacro
 ~~~~
 $ roslaunch mobot_gazebo mobot.launch
 ~~~~
-В следующей части мы добавим камеру и нужные плагины в модель, чтобы взаимодействовать с ROS.
+В [следующей части](https://github.com/urtrial/gazebo_intro/blob/master/add_plugins.md) мы добавим камеру и нужные плагины в модель, чтобы взаимодействовать с ROS.
