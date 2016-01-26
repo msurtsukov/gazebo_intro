@@ -8,7 +8,7 @@ $ catkin_init_pkg mobot_plugins roscpp gazebo_ros
 $ cd mobot_plugins
 $ mkdir include src
 ~~~~
-Создаем файл `include/camera_rotaion_plugin.h` и добавляем в него следующее содержимое:
+Создаем файл `include/mobot_plugins/camera_rotaion_plugin.h` и добавляем в него следующее содержимое:
 ~~~~
 #include <string>
 
@@ -68,9 +68,9 @@ namespace gazebo {
 
 Более подробно в комментариях в коде.
 
-Теперь создадим файл `src/camera_rotation_plugin.cpp` с таким содержимым (не забываем поменять путь в своему .h файлу):
+Теперь создадим файл `src/camera_rotation_plugin.cpp` с таким содержимым:
 ~~~~
-#include "/home/mikhail/catkin_ws/src/mobot/mobot_plugins/include/camera_rotation_plugin.h"
+#include <mobot_plugins/camera_rotation_plugin.h>
 
 namespace gazebo {
   // Constructor with NodeHandler inititalization 

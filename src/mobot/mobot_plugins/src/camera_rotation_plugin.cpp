@@ -1,4 +1,4 @@
-#include "/home/mikhail/catkin_ws/src/mobot/mobot_plugins/include/camera_rotation_plugin.h"
+#include <mobot_plugins/camera_rotation_plugin.h>
 
 namespace gazebo
 {
